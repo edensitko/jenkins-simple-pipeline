@@ -51,27 +51,35 @@ USER jenkins
 
 ### 2. Install and Configure Docker on the Host : 
 
-# Update & Upgrade
-sudo apt update && sudo apt upgrade -y
+ Update & Upgrade
 
-# Install Docker
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+Install Docker
+
+```bash
 echo "🛠️ Installing Docker..."
 sudo apt install -y docker.io
 sudo systemctl enable docker
 sudo systemctl start docker
-
-# Add current user to docker group
+```
+Add current user to docker group
+```bash
 sudo usermod -aG docker $USER
 newgrp docker
-
+```
 
 ### 3. Build Image :
 
+```bash
 sudo docker build -t custom-jenkins:latest -f Dockerfile.custom .
-
+```
 
 ### 4. Run Container :
 
+```bash
 sudo docker run -d \
   --name jenkins \
   -p 8080:8080 -p 50000:50000 \
@@ -80,6 +88,7 @@ sudo docker run -d \
   -v /usr/bin/docker:/usr/bin/docker \
   -u root \
   custom-jenkins:latest
+```
 
 ---
 ## 🛡️ Security Groups Setup
